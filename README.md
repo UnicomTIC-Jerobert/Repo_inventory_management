@@ -14,6 +14,7 @@ Run the following commands to create a new .NET Web API project:
 ```bash
 dotnet new webapi -n ProductInventoryApi
 cd ProductInventoryApi
+dotnet new gitignore
 ```
 
 
@@ -73,15 +74,16 @@ Add DbContext: Create a Data folder and add a ProductDbContext.cs file inside it
 using Microsoft.EntityFrameworkCore;
 using ProductInventoryApi.Models;
 
-public class ProductDbContext : DbContext
+public class AppDbContext : DbContext
 {
-    public ProductDbContext(DbContextOptions<ProductDbContext> options) : base(options) { }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+    public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductStock> ProductStocks { get; set; }
     public DbSet<ProductPrice> ProductPrices { get; set; }
-    public DbSet<Category> Categories { get; set; }
 }
+
 ```
 
 Register DbContext in Program.cs:
