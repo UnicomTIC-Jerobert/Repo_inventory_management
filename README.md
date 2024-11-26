@@ -1,3 +1,6 @@
+reference link :
+https://chatgpt.com/share/674617a3-1e14-800f-8b12-73d73813420f
+
 
 # 1. Prerequisites
 Ensure you have the following installed on your system:
@@ -133,7 +136,6 @@ Add validations using FluentValidation for your request DTOs.
 # 9. Run the Application
 Run the app using:
 ```bash
-Copy code
 dotnet run
 ```
 
