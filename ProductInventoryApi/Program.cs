@@ -10,24 +10,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
 var app = builder.Build();
 
-// Apply migrations and seed data
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    try
-    {
-        var context = services.GetRequiredService<AppDbContext>();
-        context.Database.Migrate(); // Apply any pending migrations
-        SeedData.Initialize(services); // Seed initial data
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"An error occurred while seeding the database: {ex.Message}");
-    }
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -45,7 +33,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

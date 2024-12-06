@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 public class AppDbContext : DbContext
 {
@@ -8,6 +9,15 @@ public class AppDbContext : DbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductStock> ProductStocks { get; set; }
     public DbSet<ProductPrice> ProductPrices { get; set; }
+
+    public DbSet<Invoice> Invoices { get; set; }
+    public DbSet<InvoiceItem> InvoiceItems { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder
+            .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,5 +41,24 @@ public class AppDbContext : DbContext
             .WithOne(pp => pp.Product)
             .HasForeignKey(pp => pp.ProductId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // Invoice -> InvoiceItem
+        modelBuilder.Entity<Invoice>()
+            .HasMany(i => i.InvoiceItems)
+            .WithOne(ii => ii.Invoice)
+            .HasForeignKey(ii => ii.InvoiceId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // InvoiceItem -> Product
+        modelBuilder.Entity<InvoiceItem>()
+            .HasOne(ii => ii.Product)
+            .WithMany()
+            .HasForeignKey(ii => ii.ProductId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        SeedData.Seed(modelBuilder);
     }
+
+
+
 }
