@@ -1,3 +1,5 @@
+using AutoMapper;
+
 public class CategoryService : ICategoryService
 {
     private readonly ICategoryRepository _repository;

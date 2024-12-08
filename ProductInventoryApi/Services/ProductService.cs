@@ -1,3 +1,5 @@
+using AutoMapper;
+
 public class ProductService : IProductService
 {
     private readonly IProductRepository _productRepo;
