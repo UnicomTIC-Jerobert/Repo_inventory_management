@@ -49,7 +49,7 @@ public static class SeedData
                 Id = 1,
                 InvoiceId = 1,
                 ProductId = 1,
-                UpdatedProductPrice = 1500,
+                sellingPrice = 1500,
                 Qty = 2
             }
         );

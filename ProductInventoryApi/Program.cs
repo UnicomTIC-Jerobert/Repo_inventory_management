@@ -8,6 +8,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+builder.Services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
+
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 // Add services to the container.

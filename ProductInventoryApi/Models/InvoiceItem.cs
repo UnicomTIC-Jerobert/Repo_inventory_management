@@ -13,9 +13,13 @@ public class InvoiceItem
     public int ProductId { get; set; }
     public Product Product { get; set; }
 
+    public int? ProductPriceId { get; set; }
+    public ProductPrice ProductPrice { get; set; }
+
+    // this selling price must math with ProductPriceId while audit , but for discounts we can do modification & judments
     [Required]
     [Range(0, double.MaxValue)]
-    public decimal UpdatedProductPrice { get; set; }
+    public decimal sellingPrice { get; set; }
 
     [Required]
     [Range(1, int.MaxValue)]
