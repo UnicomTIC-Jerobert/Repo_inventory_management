@@ -1,0 +1,7 @@
+1. Categories POST doesn't obey the response structure during validation process
+2. Internal Server error when category is not there in POST & PUT
+3. Cannot get category name while product get created through POST request
+4. Product Thumnail image upload feature is not implemented
+5. Need to think whether the categoryId also need to be Updated
+6. UUID should introduce to product stock & price model
+7. productPrice & productstock request , response DTO should created

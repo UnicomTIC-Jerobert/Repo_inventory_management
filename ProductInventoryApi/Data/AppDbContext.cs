@@ -56,6 +56,13 @@ public class AppDbContext : DbContext
             .HasForeignKey(ii => ii.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        // InvoiceItem -> ProductPrice (Optional)
+        modelBuilder.Entity<InvoiceItem>()
+            .HasOne(ii => ii.ProductPrice)
+            .WithMany()
+            .HasForeignKey(ii => ii.ProductPriceId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         SeedData.Seed(modelBuilder);
     }
 

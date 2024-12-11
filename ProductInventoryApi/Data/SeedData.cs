@@ -27,6 +27,7 @@ public static class SeedData
         // ProductPrices
         modelBuilder.Entity<ProductPrice>().HasData(
             new ProductPrice { Id = 1, ProductId = 1, Price = 1500 },
+            new ProductPrice { Id = 1, ProductId = 1, Price = 1600 },
             new ProductPrice { Id = 2, ProductId = 2, Price = 200 }
         );
 
@@ -49,6 +50,7 @@ public static class SeedData
                 Id = 1,
                 InvoiceId = 1,
                 ProductId = 1,
+                ProductPriceId=2,
                 sellingPrice = 1500,
                 Qty = 2
             }
