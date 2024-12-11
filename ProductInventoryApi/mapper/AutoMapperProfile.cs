@@ -18,5 +18,12 @@ public class AutoMapperProfile : Profile
 
         // ProductStock Mapping
         CreateMap<ProductStock, ProductStockDTO>().ReverseMap();
+
+
+        CreateMap<Invoice, InvoiceResponseDTO>();
+        CreateMap<InvoiceRequestDTO, Invoice>();
+
+        CreateMap<InvoiceItem, InvoiceItemResponseDTO>();
+        CreateMap<InvoiceItemRequestDTO, InvoiceItem>();
     }
 }
