@@ -27,7 +27,7 @@ public class CategoryService : ICategoryService
 
     public async Task<APIResponse<CategoryResponseDTO>> GetCategoryByIdAsync(Guid id)
     {
-        CategoryResponseDTO category = await _repository.GetByIdAsync(id);
+        Category category = await _repository.GetByIdAsync(id);
         if (category == null)
             return new APIResponse<CategoryResponseDTO>
             {
