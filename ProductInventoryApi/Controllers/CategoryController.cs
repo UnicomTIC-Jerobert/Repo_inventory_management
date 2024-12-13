@@ -27,16 +27,16 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCategory(CategoryRequestDTO dto)
+    public async Task<IActionResult> AddCategory(CategoryRequestDTO categoryRequestDTO)
     {
-        var response = await _service.AddCategoryAsync(dto);
+        var response = await _service.AddCategoryAsync(categoryRequestDTO);
         return CreatedAtAction(nameof(GetCategoryById), new { id = response.Payload.Id }, response);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateCategory(Guid id, CategoryRequestDTO dto)
+    public async Task<IActionResult> UpdateCategory(Guid id, CategoryRequestDTO categoryRequestDTO)
     {
-        var response = await _service.UpdateCategoryAsync(id, dto);
+        var response = await _service.UpdateCategoryAsync(id, categoryRequestDTO);
         if (!response.Success) return NotFound(response);
         return Ok(response);
     }
