@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-public class ProductStockDTO
+public class ProductStockRequestDTO
 {
     [Required]
     public DateTime DateAdded { get; set; }

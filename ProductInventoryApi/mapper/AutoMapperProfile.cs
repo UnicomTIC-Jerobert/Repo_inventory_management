@@ -14,11 +14,11 @@ public class AutoMapperProfile : Profile
         CreateMap<ProductRequestDTO, Product>();
 
         // ProductPrice Mapping
-        CreateMap<ProductPrice, ProductPriceDTO>().ReverseMap();
-
+        CreateMap<ProductPrice, ProductPriceResponseDTO>();
+        CreateMap<ProductPriceRequestDTO, ProductPrice>();
         // ProductStock Mapping
-        CreateMap<ProductStock, ProductStockDTO>().ReverseMap();
-
+        CreateMap<ProductStock, ProductStockResponseDTO>();
+        CreateMap<ProductStockRequestDTO, ProductStock>();
 
         CreateMap<Invoice, InvoiceResponseDTO>();
         CreateMap<InvoiceRequestDTO, Invoice>();

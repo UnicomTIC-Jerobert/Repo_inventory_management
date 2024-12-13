@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-public class ProductPriceDTO
+public class ProductPriceRequestDTO
 {
     [Required]
     public DateTime DateSet { get; set; }

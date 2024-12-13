@@ -1,5 +1,5 @@
 public interface IProductStockRepository
 {
-    Task<IEnumerable<ProductStock>> GetByProductIdAsync(int productId);
+    Task<IEnumerable<ProductStock>> GetByProductIdAsync(Guid productId);
     Task<ProductStock> AddAsync(ProductStock productStock);
 }

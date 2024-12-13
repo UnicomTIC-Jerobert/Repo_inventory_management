@@ -16,7 +16,7 @@ public class ProductRepository : IProductRepository
             .ToListAsync();
     }
 
-    public async Task<Product> GetByIdAsync(int id)
+    public async Task<Product> GetByIdAsync(Guid id)
     {
         return await _context.Products
             .Include(p => p.Category) // Load category details
@@ -37,7 +37,7 @@ public class ProductRepository : IProductRepository
         return product;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var product = await _context.Products.FindAsync(id);
         if (product == null)

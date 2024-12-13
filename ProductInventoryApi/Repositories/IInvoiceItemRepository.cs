@@ -1,6 +1,6 @@
 public interface IInvoiceItemRepository
 {
-    Task<IEnumerable<InvoiceItem>> GetByInvoiceIdAsync(int invoiceId);
+    Task<IEnumerable<InvoiceItem>> GetByInvoiceIdAsync(Guid invoiceId);
     Task<InvoiceItem> AddAsync(InvoiceItem invoiceItem);
-    Task<bool> DeleteByInvoiceIdAsync(int invoiceId);
+    Task<bool> DeleteByInvoiceIdAsync(Guid invoiceId);
 }

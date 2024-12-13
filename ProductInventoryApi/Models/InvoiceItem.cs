@@ -3,17 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 public class InvoiceItem
 {
-    public int Id { get; set; }
+    [Key]
+    public Guid Id { get; set; }
 
     [Required]
-    public int InvoiceId { get; set; }
+    public Guid InvoiceId { get; set; }
     public Invoice Invoice { get; set; }
 
     [Required]
-    public int ProductId { get; set; }
+    public Guid ProductId { get; set; }
     public Product Product { get; set; }
 
-    public int? ProductPriceId { get; set; }
+    public Guid? ProductPriceId { get; set; }
     public ProductPrice ProductPrice { get; set; }
 
     // this selling price must math with ProductPriceId while audit , but for discounts we can do modification & judments

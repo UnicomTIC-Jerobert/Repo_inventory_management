@@ -10,5 +10,5 @@ public class ProductRequestDTO
     public string Description { get; set; }
 
     [Required]
-    public int CategoryId { get; set; }
+    public Guid CategoryId { get; set; }
 }

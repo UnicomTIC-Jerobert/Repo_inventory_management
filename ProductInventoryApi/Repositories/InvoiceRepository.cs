@@ -15,7 +15,7 @@ public class InvoiceRepository : IInvoiceRepository
         return await _context.Invoices.Include(i => i.InvoiceItems).ToListAsync();
     }
 
-    public async Task<Invoice> GetByIdAsync(int id)
+    public async Task<Invoice> GetByIdAsync(Guid id)
     {
         return await _context.Invoices
             //.Include(i => i.InvoiceItems)
@@ -36,7 +36,7 @@ public class InvoiceRepository : IInvoiceRepository
         return updated.Entity;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var invoice = await _context.Invoices.FindAsync(id);
         if (invoice == null)

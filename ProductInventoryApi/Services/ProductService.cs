@@ -32,7 +32,7 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<APIResponse<ProductResponseDTO>> GetProductByIdAsync(int id)
+    public async Task<APIResponse<ProductResponseDTO>> GetProductByIdAsync(Guid id)
     {
         var product = await _productRepo.GetByIdAsync(id);
         if (product == null)
@@ -66,7 +66,7 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<APIResponse<ProductResponseDTO>> UpdateProductAsync(int id, ProductRequestDTO dto)
+    public async Task<APIResponse<ProductResponseDTO>> UpdateProductAsync(Guid id, ProductRequestDTO dto)
     {
         var product = await _productRepo.GetByIdAsync(id);
         if (product == null)
@@ -92,7 +92,7 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<APIResponse<bool>> DeleteProductAsync(int id)
+    public async Task<APIResponse<bool>> DeleteProductAsync(Guid id)
     {
         var deleted = await _productRepo.DeleteAsync(id);
         if (!deleted)
@@ -111,12 +111,12 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<APIResponse<IEnumerable<ProductPriceDTO>>> GetProductPricesAsync(int productId)
+    public async Task<APIResponse<IEnumerable<ProductPriceResponseDTO>>> GetProductPricesAsync(Guid productId)
     {
         var prices = await _priceRepo.GetByProductIdAsync(productId);
-        var priceDtos = _mapper.Map<IEnumerable<ProductPriceDTO>>(prices);
+        var priceDtos = _mapper.Map<IEnumerable<ProductPriceResponseDTO>>(prices);
 
-        return new APIResponse<IEnumerable<ProductPriceDTO>>
+        return new APIResponse<IEnumerable<ProductPriceResponseDTO>>
         {
             Success = true,
             Payload = priceDtos,
@@ -124,15 +124,15 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<APIResponse<ProductPriceDTO>> AddProductPriceAsync(int productId, ProductPriceDTO dto)
+    public async Task<APIResponse<ProductPriceResponseDTO>> AddProductPriceAsync(Guid productId, ProductPriceRequestDTO dto)
     {
         var price = _mapper.Map<ProductPrice>(dto);
         price.ProductId = productId;
 
         var createdPrice = await _priceRepo.AddAsync(price);
-        var priceDto = _mapper.Map<ProductPriceDTO>(createdPrice);
+        var priceDto = _mapper.Map<ProductPriceResponseDTO>(createdPrice);
 
-        return new APIResponse<ProductPriceDTO>
+        return new APIResponse<ProductPriceResponseDTO>
         {
             Success = true,
             Payload = priceDto,
@@ -140,12 +140,12 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<APIResponse<IEnumerable<ProductStockDTO>>> GetProductStocksAsync(int productId)
+    public async Task<APIResponse<IEnumerable<ProductStockResponseDTO>>> GetProductStocksAsync(Guid productId)
     {
         var stocks = await _stockRepo.GetByProductIdAsync(productId);
-        var stockDtos = _mapper.Map<IEnumerable<ProductStockDTO>>(stocks);
+        var stockDtos = _mapper.Map<IEnumerable<ProductStockResponseDTO>>(stocks);
 
-        return new APIResponse<IEnumerable<ProductStockDTO>>
+        return new APIResponse<IEnumerable<ProductStockResponseDTO>>
         {
             Success = true,
             Payload = stockDtos,
@@ -153,15 +153,15 @@ public class ProductService : IProductService
         };
     }
 
-    public async Task<APIResponse<ProductStockDTO>> AddProductStockAsync(int productId, ProductStockDTO dto)
+    public async Task<APIResponse<ProductStockResponseDTO>> AddProductStockAsync(Guid productId, ProductStockRequestDTO dto)
     {
         var stock = _mapper.Map<ProductStock>(dto);
         stock.ProductId = productId;
 
         var createdStock = await _stockRepo.AddAsync(stock);
-        var stockDto = _mapper.Map<ProductStockDTO>(createdStock);
+        var stockDto = _mapper.Map<ProductStockResponseDTO>(createdStock);
 
-        return new APIResponse<ProductStockDTO>
+        return new APIResponse<ProductStockResponseDTO>
         {
             Success = true,
             Payload = stockDto,

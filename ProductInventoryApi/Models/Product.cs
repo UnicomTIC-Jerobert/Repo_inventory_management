@@ -2,7 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 public class Product
 {
-    public int Id { get; set; }
+    [Key]
+    public Guid Id { get; set; } = Guid.NewGuid(); // Automatically generate a new UUID
 
     [Required]
     [StringLength(100, MinimumLength = 3)]
@@ -11,7 +12,7 @@ public class Product
     [StringLength(500)]
     public string Description { get; set; }
 
-    public int CategoryId { get; set; }
+    public Guid CategoryId { get; set; }
     public Category Category { get; set; }
 
     public ICollection<ProductStock> ProductStocks { get; set; }

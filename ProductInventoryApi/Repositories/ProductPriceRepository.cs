@@ -9,7 +9,7 @@ public class ProductPriceRepository : IProductPriceRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<ProductPrice>> GetByProductIdAsync(int productId)
+    public async Task<IEnumerable<ProductPrice>> GetByProductIdAsync(Guid productId)
     {
         return await _context.ProductPrices
             .Where(pp => pp.ProductId == productId)

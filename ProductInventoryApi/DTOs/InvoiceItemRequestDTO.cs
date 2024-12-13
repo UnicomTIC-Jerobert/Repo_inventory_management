@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 public class InvoiceItemRequestDTO
 {
     [Required]
-    public int ProductId { get; set; }
+    public Guid ProductId { get; set; }
 
-    public int? ProductPriceId { get; set; }
+    public Guid? ProductPriceId { get; set; }
 
     [Required]
     [Range(0, double.MaxValue)]

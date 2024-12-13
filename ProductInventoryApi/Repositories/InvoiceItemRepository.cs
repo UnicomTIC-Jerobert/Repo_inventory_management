@@ -9,7 +9,7 @@ public class InvoiceItemRepository : IInvoiceItemRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<InvoiceItem>> GetByInvoiceIdAsync(int invoiceId)
+    public async Task<IEnumerable<InvoiceItem>> GetByInvoiceIdAsync(Guid invoiceId)
     {
         return await _context.InvoiceItems
             .Include(ii => ii.Product)
@@ -24,7 +24,7 @@ public class InvoiceItemRepository : IInvoiceItemRepository
         return invoiceItem;
     }
 
-    public async Task<bool> DeleteByInvoiceIdAsync(int invoiceId)
+    public async Task<bool> DeleteByInvoiceIdAsync(Guid invoiceId)
     {
         var items = _context.InvoiceItems.Where(ii => ii.InvoiceId == invoiceId);
         if (!items.Any()) return false;

@@ -19,7 +19,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetProductById(int id)
+    public async Task<IActionResult> GetProductById(Guid id)
     {
         var response = await _service.GetProductByIdAsync(id);
         if (!response.Success) return NotFound(response);
@@ -34,7 +34,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateProduct(int id, ProductRequestDTO dto)
+    public async Task<IActionResult> UpdateProduct(Guid id, ProductRequestDTO dto)
     {
         var response = await _service.UpdateProductAsync(id, dto);
         if (!response.Success) return NotFound(response);
@@ -42,7 +42,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteProduct(int id)
+    public async Task<IActionResult> DeleteProduct(Guid id)
     {
         var response = await _service.DeleteProductAsync(id);
         if (!response.Success) return NotFound(response);
@@ -50,28 +50,28 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("{productId}/prices")]
-    public async Task<IActionResult> GetProductPrices(int productId)
+    public async Task<IActionResult> GetProductPrices(Guid productId)
     {
         var response = await _service.GetProductPricesAsync(productId);
         return Ok(response);
     }
 
     [HttpPost("{productId}/prices")]
-    public async Task<IActionResult> AddProductPrice(int productId, ProductPriceDTO dto)
+    public async Task<IActionResult> AddProductPrice(Guid productId, ProductPriceRequestDTO dto)
     {
         var response = await _service.AddProductPriceAsync(productId, dto);
         return Created("", response);
     }
 
     [HttpGet("{productId}/stocks")]
-    public async Task<IActionResult> GetProductStocks(int productId)
+    public async Task<IActionResult> GetProductStocks(Guid productId)
     {
         var response = await _service.GetProductStocksAsync(productId);
         return Ok(response);
     }
 
     [HttpPost("{productId}/stocks")]
-    public async Task<IActionResult> AddProductStock(int productId, ProductStockDTO dto)
+    public async Task<IActionResult> AddProductStock(Guid productId, ProductStockRequestDTO dto)
     {
         var response = await _service.AddProductStockAsync(productId, dto);
         return Created("", response);

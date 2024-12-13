@@ -19,7 +19,7 @@ public class InvoiceController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetInvoiceById(int id)
+    public async Task<IActionResult> GetInvoiceById(Guid id)
     {
         var response = await _invoiceService.GetInvoiceByIdAsync(id);
         return response.Success ? Ok(response) : NotFound(response);
@@ -33,14 +33,14 @@ public class InvoiceController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateInvoice(int id, [FromBody] InvoiceRequestDTO invoiceRequest)
+    public async Task<IActionResult> UpdateInvoice(Guid id, [FromBody] InvoiceRequestDTO invoiceRequest)
     {
         var response = await _invoiceService.UpdateInvoiceAsync(id, invoiceRequest);
         return response.Success ? Ok(response) : NotFound(response);
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteInvoice(int id)
+    public async Task<IActionResult> DeleteInvoice(Guid id)
     {
         var response = await _invoiceService.DeleteInvoiceAsync(id);
         return response.Success ? Ok(response) : NotFound(response);

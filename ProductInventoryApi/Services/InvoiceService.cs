@@ -26,7 +26,7 @@ public class InvoiceService : IInvoiceService
         };
     }
 
-    public async Task<APIResponse<InvoiceResponseDTO>> GetInvoiceByIdAsync(int id)
+    public async Task<APIResponse<InvoiceResponseDTO>> GetInvoiceByIdAsync(Guid id)
     {
         var invoice = await _invoiceRepository.GetByIdAsync(id);
 
@@ -88,7 +88,7 @@ public class InvoiceService : IInvoiceService
         }
     }
 
-    public async Task<APIResponse<InvoiceResponseDTO>> UpdateInvoiceAsync(int id, InvoiceRequestDTO invoiceRequest)
+    public async Task<APIResponse<InvoiceResponseDTO>> UpdateInvoiceAsync(Guid id, InvoiceRequestDTO invoiceRequest)
     {
         var existingInvoice = await _invoiceRepository.GetByIdAsync(id);
         if (existingInvoice == null)
@@ -137,7 +137,7 @@ public class InvoiceService : IInvoiceService
         }
     }
 
-    public async Task<APIResponse<bool>> DeleteInvoiceAsync(int id)
+    public async Task<APIResponse<bool>> DeleteInvoiceAsync(Guid id)
     {
         var existingInvoice = await _invoiceRepository.GetByIdAsync(id);
         if (existingInvoice == null)

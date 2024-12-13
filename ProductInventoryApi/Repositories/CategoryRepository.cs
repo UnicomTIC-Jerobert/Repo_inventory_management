@@ -14,7 +14,7 @@ public class CategoryRepository : ICategoryRepository
         return await _context.Categories.ToListAsync();
     }
 
-    public async Task<Category> GetByIdAsync(int id)
+    public async Task<Category> GetByIdAsync(Guid id)
     {
         return await _context.Categories.FindAsync(id);
     }
@@ -33,7 +33,7 @@ public class CategoryRepository : ICategoryRepository
         return category;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
         var category = await _context.Categories.FindAsync(id);
         if (category == null) return false;

@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 public class Invoice
 {
-    public int Id { get; set; }
+    [Key]
+    public Guid Id { get; set; }
 
     [Required]
     public DateTime Date { get; set; }

@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 public class Category
 {
-    public int Id { get; set; }
+    [Key]
+    public Guid Id { get; set; } = Guid.NewGuid(); // Automatically generate a new UUID
 
     [Required]
     [StringLength(100, MinimumLength = 3)]

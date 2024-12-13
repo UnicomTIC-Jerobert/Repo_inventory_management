@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ProductInventoryApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241211050510_SeedProductPriceData")]
-    partial class SeedProductPriceData
+    [Migration("20241213092624_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,9 +21,9 @@ namespace ProductInventoryApi.Migrations
 
             modelBuilder.Entity("Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -42,13 +42,13 @@ namespace ProductInventoryApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("8bf1abda-9db6-4b49-8632-7903b5b520e0"),
                             Description = "Electronics items Desc",
                             Name = "Electronics"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("ab4f6cbc-7e7d-4747-83a2-e21cf19b5a02"),
                             Description = "Furniture items Desc",
                             Name = "Furniture"
                         });
@@ -56,9 +56,9 @@ namespace ProductInventoryApi.Migrations
 
             modelBuilder.Entity("Invoice", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Balance")
                         .HasColumnType("TEXT");
@@ -79,9 +79,9 @@ namespace ProductInventoryApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("f83a54d2-0c5d-477b-844d-f672bf9d4f15"),
                             Balance = 500m,
-                            Date = new DateTime(2024, 12, 11, 5, 5, 9, 554, DateTimeKind.Utc).AddTicks(2431),
+                            Date = new DateTime(2024, 12, 13, 9, 26, 23, 400, DateTimeKind.Utc).AddTicks(5467),
                             PaidAmount = 2500m,
                             Total = 3000m
                         });
@@ -89,18 +89,18 @@ namespace ProductInventoryApi.Migrations
 
             modelBuilder.Entity("InvoiceItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("InvoiceId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("InvoiceId")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int?>("ProductPriceId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid?>("ProductPriceId")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Qty")
                         .HasColumnType("INTEGER");
@@ -121,10 +121,19 @@ namespace ProductInventoryApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            InvoiceId = 1,
-                            ProductId = 1,
-                            ProductPriceId = 2,
+                            Id = new Guid("3c90a3f2-7b65-4e63-a0f9-0deea0b965ef"),
+                            InvoiceId = new Guid("f83a54d2-0c5d-477b-844d-f672bf9d4f15"),
+                            ProductId = new Guid("ba8466d2-ae2f-4e7e-ab05-9acde5c359a1"),
+                            ProductPriceId = new Guid("13c536a6-dd25-42a0-ad8b-f5d2237d1b2b"),
+                            Qty = 2,
+                            sellingPrice = 1500m
+                        },
+                        new
+                        {
+                            Id = new Guid("0a40b31e-5d82-497e-a3f4-0da50c0157d5"),
+                            InvoiceId = new Guid("f83a54d2-0c5d-477b-844d-f672bf9d4f15"),
+                            ProductId = new Guid("158d8452-a8b6-4d3b-9c07-059894d5282e"),
+                            ProductPriceId = new Guid("a12f75c5-99bf-4123-9d9e-4610ce6c0222"),
                             Qty = 2,
                             sellingPrice = 1500m
                         });
@@ -132,12 +141,12 @@ namespace ProductInventoryApi.Migrations
 
             modelBuilder.Entity("Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -158,15 +167,15 @@ namespace ProductInventoryApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            CategoryId = 1,
+                            Id = new Guid("ba8466d2-ae2f-4e7e-ab05-9acde5c359a1"),
+                            CategoryId = new Guid("8bf1abda-9db6-4b49-8632-7903b5b520e0"),
                             Description = "Gaming Laptop",
                             Name = "Laptop"
                         },
                         new
                         {
-                            Id = 2,
-                            CategoryId = 2,
+                            Id = new Guid("158d8452-a8b6-4d3b-9c07-059894d5282e"),
+                            CategoryId = new Guid("ab4f6cbc-7e7d-4747-83a2-e21cf19b5a02"),
                             Description = "Dining Table",
                             Name = "Table"
                         });
@@ -174,9 +183,9 @@ namespace ProductInventoryApi.Migrations
 
             modelBuilder.Entity("ProductPrice", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateSet")
                         .HasColumnType("TEXT");
@@ -184,8 +193,8 @@ namespace ProductInventoryApi.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -196,38 +205,38 @@ namespace ProductInventoryApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("b8712890-b97c-4ef8-a636-bc84f20e5d9a"),
                             DateSet = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Price = 1500m,
-                            ProductId = 1
+                            ProductId = new Guid("ba8466d2-ae2f-4e7e-ab05-9acde5c359a1")
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("a12f75c5-99bf-4123-9d9e-4610ce6c0222"),
                             DateSet = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Price = 200m,
-                            ProductId = 2
+                            ProductId = new Guid("158d8452-a8b6-4d3b-9c07-059894d5282e")
                         },
                         new
                         {
-                            Id = 3,
+                            Id = new Guid("13c536a6-dd25-42a0-ad8b-f5d2237d1b2b"),
                             DateSet = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Price = 1600m,
-                            ProductId = 1
+                            ProductId = new Guid("ba8466d2-ae2f-4e7e-ab05-9acde5c359a1")
                         });
                 });
 
             modelBuilder.Entity("ProductStock", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
@@ -241,17 +250,24 @@ namespace ProductInventoryApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            DateAdded = new DateTime(2024, 12, 11, 5, 5, 9, 553, DateTimeKind.Utc).AddTicks(9964),
-                            ProductId = 1,
+                            Id = new Guid("cc92125e-3f94-40ef-8fbe-7e9b960c5e1d"),
+                            DateAdded = new DateTime(2024, 12, 13, 9, 26, 23, 400, DateTimeKind.Utc).AddTicks(3710),
+                            ProductId = new Guid("ba8466d2-ae2f-4e7e-ab05-9acde5c359a1"),
                             Quantity = 10
                         },
                         new
                         {
-                            Id = 2,
-                            DateAdded = new DateTime(2024, 12, 11, 5, 5, 9, 554, DateTimeKind.Utc).AddTicks(267),
-                            ProductId = 2,
+                            Id = new Guid("4bc386f6-3ef8-4bbd-8e64-f1b89d8bc1ac"),
+                            DateAdded = new DateTime(2024, 12, 13, 9, 26, 23, 400, DateTimeKind.Utc).AddTicks(3874),
+                            ProductId = new Guid("158d8452-a8b6-4d3b-9c07-059894d5282e"),
                             Quantity = 5
+                        },
+                        new
+                        {
+                            Id = new Guid("a2e67471-1df2-45b2-b434-f0a7a7900a08"),
+                            DateAdded = new DateTime(2024, 12, 13, 9, 26, 23, 400, DateTimeKind.Utc).AddTicks(3876),
+                            ProductId = new Guid("158d8452-a8b6-4d3b-9c07-059894d5282e"),
+                            Quantity = 10
                         });
                 });
 

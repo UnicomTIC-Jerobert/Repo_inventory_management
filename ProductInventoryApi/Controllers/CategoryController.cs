@@ -19,7 +19,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCategoryById(int id)
+    public async Task<IActionResult> GetCategoryById(Guid id)
     {
         var response = await _service.GetCategoryByIdAsync(id);
         if (!response.Success) return NotFound(response);
@@ -34,7 +34,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateCategory(int id, CategoryRequestDTO dto)
+    public async Task<IActionResult> UpdateCategory(Guid id, CategoryRequestDTO dto)
     {
         var response = await _service.UpdateCategoryAsync(id, dto);
         if (!response.Success) return NotFound(response);
@@ -42,7 +42,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCategory(int id)
+    public async Task<IActionResult> DeleteCategory(Guid id)
     {
         var response = await _service.DeleteCategoryAsync(id);
         if (!response.Success) return NotFound(response);

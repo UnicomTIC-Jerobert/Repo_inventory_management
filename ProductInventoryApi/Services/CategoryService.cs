@@ -24,7 +24,7 @@ public class CategoryService : ICategoryService
         };
     }
 
-    public async Task<APIResponse<CategoryResponseDTO>> GetCategoryByIdAsync(int id)
+    public async Task<APIResponse<CategoryResponseDTO>> GetCategoryByIdAsync(Guid id)
     {
         var category = await _repository.GetByIdAsync(id);
         if (category == null)
@@ -58,7 +58,7 @@ public class CategoryService : ICategoryService
         };
     }
 
-    public async Task<APIResponse<CategoryResponseDTO>> UpdateCategoryAsync(int id, CategoryRequestDTO dto)
+    public async Task<APIResponse<CategoryResponseDTO>> UpdateCategoryAsync(Guid id, CategoryRequestDTO dto)
     {
         var category = await _repository.GetByIdAsync(id);
         if (category == null)
@@ -83,7 +83,7 @@ public class CategoryService : ICategoryService
         };
     }
 
-    public async Task<APIResponse<bool>> DeleteCategoryAsync(int id)
+    public async Task<APIResponse<bool>> DeleteCategoryAsync(Guid id)
     {
         var deleted = await _repository.DeleteAsync(id);
         if (!deleted)
