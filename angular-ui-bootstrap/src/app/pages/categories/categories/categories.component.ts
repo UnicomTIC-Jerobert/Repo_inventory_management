@@ -7,6 +7,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./categories.component.css'],
 })
 export class CategoriesComponent {
+  
   categoriesForm: FormGroup;
 
   constructor(private fb: FormBuilder) {

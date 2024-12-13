@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +12,6 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { CategoriesComponent } from './pages/categories/categories/categories.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ProductFormComponent } from './pages/products/product-form/product-form.component';
 import { InvoiceComponent } from './pages/invoices/invoice/invoice.component';
 
