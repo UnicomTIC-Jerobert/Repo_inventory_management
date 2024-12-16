@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../../service/category.service';
-import { CategoryRequest } from '../../../models/CategoryRequest';
 import { CategoryResponse } from '../../../models/CategoryResponse';
 import { ApiResponse } from '../../../helpers/ApiResponse';
 
