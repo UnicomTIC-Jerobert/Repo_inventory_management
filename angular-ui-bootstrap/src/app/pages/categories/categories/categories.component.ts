@@ -1,55 +1,97 @@
-import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../../../service/category.service';
+import { CategoryRequest } from '../../../models/CategoryRequest';
+import { CategoryResponse } from '../../../models/CategoryResponse';
+import { ApiResponse } from '../../../helpers/ApiResponse';
+
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.css'],
 })
-export class CategoriesComponent {
-  
-  categoriesForm: FormGroup;
+export class CategoriesComponent implements OnInit {
+  categories: { id: string | null; name: string; description: string; editMode: boolean }[] = [];
 
-  constructor(private fb: FormBuilder) {
-    this.categoriesForm = this.fb.group({
-      categories: this.fb.array([]), // Initialize FormArray
-    });
+  constructor(private categoryService: CategoryService) { }
+
+  ngOnInit() {
+    this.loadCategories();
   }
 
-  // Getter for categories FormArray
-  get categories(): FormArray {
-    return this.categoriesForm.get('categories') as FormArray;
+  // Fetch categories from API
+  loadCategories() {
+    this.categoryService.listCategories().subscribe((response: ApiResponse<CategoryResponse[]>) => {
+      if (response.success) {
+        this.categories = response.payload.map((category: any) => ({
+          id: category.id,
+          name: category.name,
+          description: category.description,
+          editMode: false, // Default to non-editable
+        }));
+      } else {
+        console.error('Failed to load categories:', response.errors);
+      }
+    });
   }
 
   // Add a new category
   addCategory() {
-    this.categories.push(
-      this.fb.group({
-        name: [''], // Default empty name
-        editMode: [true], // New category is editable by default
-      })
-    );
+    this.categories.push({
+      id: null,
+      name: '',
+      description: '',
+      editMode: true, // Allow editing immediately after creation
+    });
   }
 
-  // Edit a category
-  editCategory(index: number) {
-    const category = this.categories.at(index);
-    category.patchValue({ editMode: true }); // Enable edit mode
+  // Enable edit mode for a category
+  editCategory(category: any) {
+    category.editMode = true;
   }
 
-  // Save changes to a category
-  saveCategory(index: number) {
-    const category = this.categories.at(index);
-    category.patchValue({ editMode: false }); // Disable edit mode
+  // Save a category (either create or update)
+  saveCategory(category: any) {
+   
+    if (category.id) {
+      
+      // Update existing category
+      this.categoryService.updateCategory(category.id, category).subscribe((response: ApiResponse<CategoryResponse>) => {
+        if (response.success) {
+          category.editMode = false;
+        } else {
+          console.error('Failed to update category:', response.errors);
+        }
+      });
+    } else {
+      // Create new category
+      this.categoryService.saveCategory(category).subscribe((response: ApiResponse<CategoryResponse>) => {
+        if (response.success) {
+          category.id = response.payload.id; // Assign the new ID
+          category.editMode = false;
+        } else {
+          console.error('Failed to create category:', response.errors);
+        }
+      });
+    }
   }
 
   // Delete a category
   deleteCategory(index: number) {
-    this.categories.removeAt(index);
-  }
-
-  // Submit the form (e.g., to save categories to backend)
-  onSubmit() {
-    console.log(this.categoriesForm.value);
+    const category = this.categories[index];
+    if (category.id) {
+      this.categoryService.deleteCategory(category.id).subscribe((response: ApiResponse<void>) => {
+        if (response.success) {
+          this.categories.splice(index, 1);
+        } else {
+          console.error('Failed to delete category:', response.errors);
+        }
+      });
+    } else {
+      // Remove unsaved category directly
+      this.categories.splice(index, 1);
+    }
   }
 }
+
+
