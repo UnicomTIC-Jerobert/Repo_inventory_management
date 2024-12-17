@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProductResponse } from '../../../models/ProductResponse';
+import { ProductService } from '../../../service/ProductService';
 
 @Component({
   selector: 'app-product-list',
@@ -6,8 +8,25 @@ import { Component } from '@angular/core';
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent {
-  products = [
-    { name: 'Product 1', description: 'Description 1', image: 'path/to/image1.jpg' },
-    { name: 'Product 2', description: 'Description 2', image: 'path/to/image2.jpg' },
-  ];
+  products: ProductResponse[] = [];
+
+  constructor(private productService: ProductService) { }
+
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  // Fetch all products
+  loadProducts(): void {
+    this.productService.getProducts().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.products = response.payload;
+        } else {
+          console.error('Error fetching products:', response.errors);
+        }
+      },
+      error: (err) => console.error('API error:', err)
+    });
+  }
 }

@@ -13,12 +13,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="category" class="form-label">Category</label>
-                    <select id="category" class="form-select" name="category" [(ngModel)]="product.category">
-                        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                    <select id="category" class="form-select" name="category" [(ngModel)]="product.categoryId">
+                        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-success mt-3">Save Product</button>
+                    <button type="submit" class="btn btn-success mt-3">
+                        {{ isEditMode ? 'Update Product' : 'Save Product' }}
+                    </button>
                 </div>
             </form>
         </div>

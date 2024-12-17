@@ -20,9 +20,10 @@ const routes: Routes = [
     path: '', // Dashboard route
     component: MainLayoutComponent,
     children: [
-      { path: '', redirectTo: 'products', pathMatch: 'full' }, // Redirect '/' to 'products'
-      { path: 'products', component: ProductListComponent },
+      { path: '', redirectTo: 'products/list', pathMatch: 'full' }, // Redirect '/' to 'products'
+      { path: 'products/list', component: ProductListComponent },
       { path: 'products/add', component: ProductAddComponent },
+      { path: 'products/edit/:id', component: ProductAddComponent },
       { path: 'categories', component: CategoriesComponent }, // Categories route
       { path: 'invoices', component: InvoiceComponent },
     ],

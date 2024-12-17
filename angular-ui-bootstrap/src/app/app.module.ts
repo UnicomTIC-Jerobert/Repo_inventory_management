@@ -12,7 +12,6 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { CategoriesComponent } from './pages/categories/categories/categories.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { ProductFormComponent } from './pages/products/product-form/product-form.component';
 import { InvoiceComponent } from './pages/invoices/invoice/invoice.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -28,7 +27,6 @@ import { HttpClientModule } from '@angular/common/http';
     CategoriesComponent,
     MainLayoutComponent,
     AuthLayoutComponent,
-    ProductFormComponent,
     InvoiceComponent,
   ],
   imports: [
