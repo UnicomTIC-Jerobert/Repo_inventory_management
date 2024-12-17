@@ -1,66 +1,130 @@
-<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <form #productForm="ngForm" (ngSubmit)="onSubmit()">
                 <div class="mb-3">
                     <label for="name" class="form-label">Product Name</label>
-                    <input type="text" id="name" class="form-control" formControlName="name">
+                    <input type="text" id="name" class="form-control" name="name" [(ngModel)]="product.name" required>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea id="description" class="form-control" formControlName="description"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="image" class="form-label">Product Image</label>
-                    <input type="file" id="image" class="form-control" (change)="onImageChange($event)">
-                    <img *ngIf="imagePreview" [src]="imagePreview" alt="Image Preview" class="img-thumbnail mt-2">
+                    <textarea id="description" class="form-control" name="description" [(ngModel)]="product.description"
+                        required></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="category" class="form-label">Category</label>
-                    <select id="category" class="form-select" formControlName="category">
+                    <select id="category" class="form-select" name="category" [(ngModel)]="product.category">
                         <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
                     </select>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <h5>Stock</h5>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Location</th>
-                            <th>Stock</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let stock of stocks">
-                            <td>{{ stock.location }}</td>
-                            <td>{{ stock.quantity }}</td>
-                            <td><button class="btn btn-danger btn-sm">Remove</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-4">
-                <h5>Price Changes</h5>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Price</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let price of prices">
-                            <td>{{ price.date }}</td>
-                            <td>{{ price.amount }}</td>
-                            <td><button class="btn btn-danger btn-sm">Remove</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success mt-3">Save Product</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-8">
+            <ul class="nav nav-tabs justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#stocks">Stocks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#prices">Prices</a>
+                </li>
+            </ul>
+            <div class="tab-content mt-3">
+                <div id="stocks" class="tab-pane fade show active">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let stock of stocks; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>
+                                    <input type="date" [(ngModel)]="stock.dateOfUpdate" name="stockDate{{ i }}"
+                                        class="form-control" [disabled]="!stock.isEditable">
+                                </td>
+                                <td>
+                                    <input type="number" [(ngModel)]="stock.quantity" name="stockQuantity{{ i }}"
+                                        class="form-control" [disabled]="!stock.isEditable">
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm  mx-2" *ngIf="!stock.isEditable" (click)="editStock(i)">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success mx-2" *ngIf="stock.isEditable"
+                                        (click)="updateStock(i)">
+                                        <i class="bi bi-check"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" (click)="removeStock(i)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" (click)="addStock()">
+                                        <i class="bi bi-plus-circle"></i> Stock
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="prices" class="tab-pane fade">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let price of prices; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>
+                                    <input type="date" [(ngModel)]="price.date" name="priceDate{{ i }}"
+                                        class="form-control" [disabled]="!price.isEditable">
+                                </td>
+                                <td>
+                                    <input type="number" [(ngModel)]="price.amount" name="priceAmount{{ i }}"
+                                        class="form-control" [disabled]="!price.isEditable">
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm  mx-2" *ngIf="!price.isEditable" (click)="editPrice(i)">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success mx-2" *ngIf="price.isEditable"
+                                        (click)="updatePrice(i)">
+                                        <i class="bi bi-check"></i>
+                                    </button>
+
+                                    <button class="btn btn-sm btn-danger" (click)="removePrice(i)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" (click)="addPrice()">
+                                        <i class="bi bi-plus-circle"></i> Price
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success mt-3">Save Product</button>
     </div>
-</form>
+</div>
